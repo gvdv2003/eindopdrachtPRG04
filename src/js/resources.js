@@ -1,16 +1,27 @@
-import { ImageSource, Sound, Resource, Loader } from 'excalibur'
+import { ImageSource, Loader } from 'excalibur';
+import { TiledResource } from '@excaliburjs/plugin-tiled';
 
-// voeg hier jouw eigen resources toe
+// Voeg hier jouw eigen resources toe
 const Resources = {
-    Fish: new ImageSource('images/fish.png')
-}
+    Playerright: new ImageSource('images/ship13.png'),
+    Playerdown: new ImageSource('images/ship9.png'),
+    Playerdownright: new ImageSource('images/ship11.png'),
+    Playerdownleft: new ImageSource('images/ship7.png'),
+    Playerleft: new ImageSource('images/ship5.png'),
+    playerupleft: new ImageSource('images/ship3.png'),
+    playerup: new ImageSource('images/ship1.png'),
+    playerupright: new ImageSource('images/ship15.png'),
+    // tilemapje: new TiledResource('public/images/tilemap1.tmx') // Zorg ervoor dat dit pad correct is
 
+    badguy: new ImageSource('images/badguyship.png'),
+    fireball: new ImageSource('images/fireball.png'),
+    kanon: new ImageSource('images/kanon.png'),
+    explosion: new ImageSource('images/explosion.png'),
+    hit: new ImageSource('images/hit.png'),
+    canonball: new ImageSource('images/canonball.png')
+    
+};
 
+const ResourceLoader = new Loader(Object.values(Resources));
 
-
-const ResourceLoader = new Loader()
-for (let res of Object.values(Resources)) {
-    ResourceLoader.addResource(res)
-}
-
-export { Resources, ResourceLoader }
+export { Resources, ResourceLoader };
