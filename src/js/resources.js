@@ -23,6 +23,7 @@ const Resources = {
     
 };
 
+
 const ResourceLoader = new Loader(Object.values(Resources));
 
 export { Resources, ResourceLoader };
