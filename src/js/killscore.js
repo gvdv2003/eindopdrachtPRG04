@@ -28,7 +28,7 @@ export class Killscore extends ScreenElement {
         console.log("score is ge update")
         console.log(this.scoreText.text)
 
-        if (this.score > 0){
+        if (this.score > 9){
 
             this.game.endScene();
         }
