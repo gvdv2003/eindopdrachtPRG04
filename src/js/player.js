@@ -2,6 +2,7 @@ import {Actor, Vector, Keys, CollisionType} from "excalibur";
 import {Resources} from "./resources.js";
 import { Bullet } from './bullet.js';
 import { Game } from "./game.js";
+import { Canonballscore } from "./canonballscore.js";
 import { Healthbar } from './health.js';
 import { Kanon } from "./kanon.js";
 import { BadGuy } from "./badguy.js";
@@ -9,13 +10,15 @@ import { Canonball } from "./canonball.js";
 
 export class Player extends Actor {
     canShoot = false
-    constructor() {
+    constructor(canonballscore, healthBar) {
         super({
             width: 50,
             height: 40,
             collisionType: CollisionType.Active
         });
-        this.scale = new Vector(2, 2);        
+        this.scale = new Vector(2, 2); 
+        this.canonballscore =  canonballscore  
+        this.healthBar = healthBar    
         
     }
 
@@ -87,20 +90,25 @@ export class Player extends Actor {
         this.pos = new Vector(1075, 215)
         this.graphics.use(Resources.Playerright.toSprite())
         engine.input.pointers.primary.on('down', (evt) => {
-            this.shoot(engine, evt.worldPos);
+            if (!(this.canonballscore.score < 1)){
+
+                this.shoot(engine, evt.worldPos);
+                
+            }
+           
         });
 
 
 
-        this.healthBar = new Healthbar(this);
-        engine.add(this.healthBar);
+        
 
     }
 
     shoot(engine, targetPos) {
         if (this.canShoot){
+        this.canonballscore.updateScore(-1)
         const direction = targetPos.sub(this.pos).normalize();
-        const bullet = new Bullet(this.pos.clone(), direction);
+        const bullet = new Bullet(this.pos, direction);
         bullet.z = 10; // Zorg ervoor dat de kogel een hogere z-index heeft
         
         engine.currentScene.add(bullet);
@@ -114,21 +122,27 @@ export class Player extends Actor {
             event.other.kill ()
 
         } else if (event.other instanceof BadGuy){
-            this.healthBar.reduceHealth(0.3)
+            this.healthBar.reduceHealth(0.3,)
 
 
         } else if (event.other instanceof Canonball){
             event.other.kill ();
-            
+            this.canonballscore.updateScore(10)
 
 
         }
         else{
-            this.healthBar.reduceHealth(0.1);
-
+            this.healthBar.reduceHealth(0.1,);
         }
 
         
+    }
+
+    die() {
+        console.log("Player is dead!");
+        
+        this.canonballscore.resetScore(); // Reset de score wanneer de speler sterft
+        this.kill(); // Verwijder de speler uit de game
     }
     
     

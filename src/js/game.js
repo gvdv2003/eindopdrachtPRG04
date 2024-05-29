@@ -1,65 +1,63 @@
 import '../css/style.css';
-import { Engine, DisplayMode, Loader } from 'excalibur';
+import { Engine, DisplayMode, Loader} from 'excalibur';
 import { Resources, ResourceLoader } from './resources.js';
 import { Player } from './player.js';
 import { BadGuy } from './badguy.js';
 import { Canonball } from './canonball.js';
+import { Canonballscore } from './canonballscore.js';
 import { Kanon } from './kanon.js';
 import { TiledResource } from '@excaliburjs/plugin-tiled';
+import { IntroScene } from './introscene.js';
+import { Mainscene } from './mainscene.js';
+import { GameOverScene } from './gameoverscene.js';
+import { EndScene } from './endscene.js';
 
 export class Game extends Engine {
+    mainScene = new Mainscene(this);
     constructor() {
-        super({ 
+        super({
             width: 1280,
             height: 720,
             maxFps: 60,
             displayMode: DisplayMode.FitScreen,
             antialiasing: false,
-        
         });
-        this.start(ResourceLoader).then(() => this.startGame());
+        this.start(ResourceLoader).then(() => this.showIntro());
     }
 
-    startGame() {
-        const tiledMapResource = new TiledResource('public/images/tilemap1.tmx');
-        const loader = new Loader([tiledMapResource]);
-        this.start(loader).then(() => {
-            tiledMapResource.addToScene(this.currentScene);
-            this.initializeActors();
-        });
-    }
+    showIntro() {
 
-    initializeActors() {
-        console.log("Start de game!");
-
-        const player = new Player();
-        player.z = 3;
-
-        const badGuy1 = new BadGuy(900, 200, this);
-        badGuy1.z = 3;
-
-        const badGuy2 = new BadGuy(1380, 600, this);
-        badGuy2.z = 3;
-
-        const badGuy3 = new BadGuy(1000, 700, this);
-        badGuy3.z = 3;
-
-        const kanon = new Kanon (1680, 1350);
-        kanon.z = 3
-
-        const canonball1 = new Canonball (550, 1650)
-        canonball1.z = 4
-
-        this.currentScene.camera.strategy.lockToActor(player);
-        this.currentScene.camera.zoom = 2;
+        const introScene = new IntroScene(this);
+        this.addScene('intro', introScene);
+        this.goToScene('intro');
         
-        this.add(player);
-        this.add(badGuy1);
-        this.add(badGuy2);
-        this.add(badGuy3);
-        this.add(kanon);
-        this.add(canonball1);
     }
+
+    goToMainGameScene() {
+        
+        this.addScene('main', this.mainScene);
+        this.goToScene('main');
+
+    }
+    restartMainScene(){
+        
+        this.mainScene.restartScene();
+    }
+    gameOverScene() {
+        const gameoverscene = new GameOverScene(this);
+        this.addScene('gameover', gameoverscene);
+        this.goToScene('gameover');
+    }
+
+    endScene(){
+        const endscene = new EndScene(this);
+        this.addScene('end', endscene);
+        this.goToScene('end');
+
+    }
+
+    
 }
+
 
 new Game();

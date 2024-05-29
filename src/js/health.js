@@ -1,5 +1,7 @@
 import {Actor, Color, Vector, ScreenElement, CollisionType} from "excalibur";
 import { Resources, ResourceLoader } from './resources.js';
+import { Player } from "./player.js";
+import { Canonballscore } from "./canonballscore.js";
 
 export class Healthbar extends ScreenElement {
 
@@ -8,20 +10,26 @@ export class Healthbar extends ScreenElement {
     background
     game
 
-    constructor(game) {
+    
+
+    constructor(game, canonballscore) {
         super();
         this.game = game;
+        
     }
+
+    Player
+    
 
     onInitialize(engine) {
         console.log('healthbar init')
         this.engine = engine
         this.currentHealth = 1;
-        this.background = new Actor({ x: 10, y: 10, color: Color.fromRGB(255, 255, 255, 0.4), width: 200, height: 5, anchor: Vector.Zero})
+        this.background = new Actor({ x: 10, y: 10, color: Color.fromRGB(255, 255, 255, 0.4), width: 200, height: 15, anchor: Vector.Zero})
         this.background.z = 11
         this.addChild(this.background)
 
-        this.healthbar = new Actor({ x: 10, y: 10, color: Color.Green, width: 200, height: 5, anchor: Vector.Zero })
+        this.healthbar = new Actor({ x: 10, y: 10, color: Color.Green, width: 200, height: 15, anchor: Vector.Zero })
         this.addChild(this.healthbar)
         this.healthbar.z = 11
 
@@ -34,8 +42,19 @@ export class Healthbar extends ScreenElement {
 
     reduceHealth(amount) {
         if (this.currentHealth <= 0){
-            // player dead
+            console.log("Player is dead!");
+            this.engine.currentScene.actors.forEach(actor => {
+                if (actor instanceof Player) {
+                    
+                    actor.die();
+                }
+            });
+
+
             this.game.gameOverScene();
+                
+
+            
         }else{
             this.healthbar.scale = new Vector(this.currentHealth - amount, 1) // de health is nu 50%
             this.currentHealth = this.currentHealth - amount

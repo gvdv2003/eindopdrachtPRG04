@@ -1,6 +1,7 @@
 import {Resources} from "./resources.js";
 import { Actor, Vector, CollisionType, Color, Circle } from 'excalibur';
 
+
 export class Bullet extends Actor {
     constructor(pos, direction) {
         super({
@@ -13,7 +14,7 @@ export class Bullet extends Actor {
         this.graphics.use(Resources.fireball.toSprite());
             
 
-        this.vel = direction.scale(200); // Pas de snelheid van de kogel aan
+        this.vel = direction.scale(300); // Pas de snelheid van de kogel aan
         this.z = 10; // Zorg ervoor dat de kogel een hoge z-index heeft
         
         this.scale = new Vector(0.5, 0.5);
@@ -21,6 +22,5 @@ export class Bullet extends Actor {
         
     }
 
-    onPreUpdate(engine, delta) {
-    }
+    
 }

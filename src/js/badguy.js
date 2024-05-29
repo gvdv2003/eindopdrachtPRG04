@@ -5,12 +5,11 @@ import { Explosion } from './explosion.js';
 import { Hit } from './hit.js';
 
 
-
-
 export class BadGuy extends Actor {
     life = 5;
     game;
-    constructor(posX, posY, game) {
+    killscore
+    constructor(posX, posY, game, killScore) {
         super({
             pos: new Vector(posX, posY),
             width: 100, // Gebruik dezelfde afmetingen als de speler
@@ -23,6 +22,9 @@ export class BadGuy extends Actor {
         this.vel = new Vector(0, 0);
         this.game = game;
         this.timer = 0; // Timer om de richting te veranderen
+        this.killscore = killScore;
+
+        
     }
 
     onInitialize(engine) {
@@ -46,6 +48,10 @@ export class BadGuy extends Actor {
                 const biem = new Explosion(this.pos.x, this.pos.y)
                 this.game.add(biem)
                 this.kill()
+                console.log(this.killscore)
+                this.killscore.updateScore(1)
+                
+
             }
         }
         

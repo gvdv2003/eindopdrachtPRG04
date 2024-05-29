@@ -10,7 +10,7 @@ export class Canonball extends Actor {
         super({
             width: 500,
             height: 400,
-            collisionType: CollisionType.Passive
+            collisionType: CollisionType.Active
         });
         this.scale = new Vector(0.05, 0.05);
         this.graphics.use(Resources.canonball.toSprite())
