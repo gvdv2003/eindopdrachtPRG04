@@ -28,7 +28,7 @@ export class Mainscene extends Scene {
     }
 
     startGame() {
-        const tiledMapResource = new TiledResource('public/images/tilemap1.tmx');
+        //const tiledMapResource = new TiledResource('public/images/tilemap1.tmx');
         Resources.tilemapje.addToScene(this);
         this.initializeActors();
     }
