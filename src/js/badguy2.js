@@ -10,7 +10,7 @@ export class BadGuy2 extends BadGuy {
 
     onInitialize(engine) {
         this.graphics.use(Resources.badguy2.toSprite()); // Gebruik een speler sprite, vervang dit door een bad guy sprite als je die hebt
-       
+        this.on('collisionstart', (evt) => this.onCollisionStart(evt));
         
     }
 
