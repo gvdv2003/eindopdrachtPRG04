@@ -1,4 +1,5 @@
 import { Scene, Label, TextAlign, Color, Vector, Input, Font,Keys } from 'excalibur';
+import { Resources, ResourceLoader } from './resources.js';
 
 export class EndScene extends Scene {
     constructor(game) {
@@ -9,7 +10,7 @@ export class EndScene extends Scene {
 
     onInitialize() {
         // Add event listener to transition to main game scene
-        
+
         this.game.input.keyboard.on('press', (evt) => {
             if (evt.key === Input.Keys.Space) {
                 this.game.restartMainScene();
@@ -17,6 +18,7 @@ export class EndScene extends Scene {
         });
 
         // Display instructions
+        
         const instructions = new Label({
             text: 'Shipper\n Gefeliciteerd alle vijandige schepen zijn verslagen \n  \n druk op spatie om het spel opnieuw te starten',
             font: new Font({

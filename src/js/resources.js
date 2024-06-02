@@ -19,7 +19,10 @@ const Resources = {
     explosion: new ImageSource('images/explosion.png'),
     hit: new ImageSource('images/hit.png'),
     canonball: new ImageSource('images/canonball.png'),
-    backgroundMusic: new Sound('music/Piratetheme.mp3')
+    backgroundMusic: new Sound('music/Piratetheme.mp3'),
+    badguy2: new ImageSource('images/badguy2.png')
+
+    
     
 };
 

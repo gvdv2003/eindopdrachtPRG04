@@ -7,6 +7,7 @@ import { Canonball } from './canonball.js';
 import { Canonballscore } from './canonballscore.js';
 import { Kanon } from './kanon.js';
 import { TiledResource } from '@excaliburjs/plugin-tiled';
+import { BadGuy2 } from './badguy2.js';
 import { Healthbar } from './health.js';
 import { Killscore } from './killscore.js';
 
@@ -54,7 +55,7 @@ export class Mainscene extends Scene {
         const player = new Player(this.canonballscore, this.healthBar);
         player.z = 3;
 
-        const badGuy1 = new BadGuy(900, 200, this, this.killscore);
+        const badGuy1 = new BadGuy2(900, 200, this, this.killscore);
         badGuy1.z = 3;
 
         const badGuy2 = new BadGuy(1380, 600, this, this.killscore);

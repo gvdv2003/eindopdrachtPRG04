@@ -19,6 +19,7 @@ export class GameOverScene extends Scene {
         });
 
         // Display instructions
+        
         const instructions = new Label({
             text: 'Shipper\n Hellaas je Schip is gezonken \n maar wees niet getreurd vroeger hadden Schippers meestal we meer dan 1 schip \n dus pak gewoon een nieuwe \n druk op spatie om een nieuw spel te beginnen',
             font: new Font({
